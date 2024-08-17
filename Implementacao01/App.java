@@ -6,11 +6,9 @@
 * Teoria dos Grafos e Computabilidade - PUC Minas
 */ 
 
-import java.io.RandomAccessFile;
-import java.io.IOException;
-import java.util.Scanner;
+package Implementacao01;
 
-public class MatrizIncidencia {
+public class App {
     public static void main(String[] args) {
         
     }
