@@ -27,34 +27,23 @@ public class App {
     public static void main(String[] args) {
         // Atributes
         Scanner sc = new Scanner(System.in);
-        int selected = 0;
-        boolean exit = false;
-
         Graph graph;
+        int selected = 0; // selected vertex
         String fileName = ""; // file name for test graph
 
-        while (!exit) {
-            System.out.println("\n\nOlá! Seja bem-vindo. -------------------\nO que deseja fazer?");
-            System.out.println("[ 0 ]: Sair");
-            System.out.println("[ 1 ]: Representação de Grafo");
+        // User Input --------------------------------
+        System.out.println("Insira o nome do arquivo: ");
+        fileName = sc.nextLine();
 
-            System.out.print("\nDigite a opção que deseja: ");
-            selected = Integer.parseInt(sc.nextLine());
+        System.out.println("Insira o número do vértice: ");
+        selected = sc.nextInt();
 
-            switch (selected) {
-                case 0:
-                    exit = true;
-                    System.out.println("Obrigada! Saindo...");
-                    sc.close();
-                    break;
-                case 1:
-                    System.out.println("\nRepresentação de Grafo Selecionada.");
-                    System.out.print("\nQual o nome do arquivo que contém o grafo?: ");
-                    fileName = sc.nextLine();
+        graph = new Graph(fileName);
+        // todo grau de saída
+        // todo grau de entrada
+        // todo conjundo de sucessores
+        // todo conjunto de predecessores
 
-                    graph = new Graph(fileName);
-                    break;
-            }
-        }
+        sc.close();
     }
 }
