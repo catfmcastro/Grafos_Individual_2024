@@ -16,8 +16,6 @@ class Vertex {
     private int number;
     private ArrayList<Integer> successors;
     private ArrayList<Integer> predecessor;
-    private int indegree;
-    private int outdegree;
 
     public Vertex (int n) {
         this.successors = new ArrayList<Integer>();
@@ -25,7 +23,7 @@ class Vertex {
     }
 
     public void addSuccessor() {
-
+        
     }
 
     public void addPredecessor() {
@@ -39,8 +37,8 @@ public class Graph {
     private int m; // number of edges
     
     private ArrayList<Vertex> adj[]; // adjacency list
-    // private int indegree[]; // indegree array
-    // private int outdegree[]; // outdegree array
+    private int indegree[]; // indegree array
+    private int outdegree[]; // outdegree array
     
     private Scanner file;
 
@@ -55,14 +53,14 @@ public class Graph {
             this.n = file.nextInt();
             this.m = file.nextInt();
 
-            // indegree = new int[n + 1];
-            // outdegree = new int[n + 1];
+            indegree = new int[n + 1];
+            outdegree = new int[n + 1];
             // adj = new int[n + 1];
 
             for(int i = 0; i < m; i++) {
                 int v = file.nextInt();
                 int w = file.nextInt();
-                // addEdge(v, w);
+                addEdge(v, w, i);
             }
             
         } catch (Exception e) {
@@ -89,11 +87,11 @@ public class Graph {
         }
     }
 
-    public void addEdge (int v, int w) {
+    public void addEdge (int v, int w, int i) {
         validateVertex(v);
         validateVertex(w);
-
-        // adj[v] = w;
+        
+        //adj[i] = w;
         // indegree[w]++;
         // outdegree[v]++;
         System.out.println("testing: adj[" + v + "] = " + adj[v]);
