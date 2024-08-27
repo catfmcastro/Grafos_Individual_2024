@@ -2,14 +2,14 @@
  * Implementação 01 - Representação de Grafos
  * Implementation 01 - Graph Representation
  *
- * @catfmcastro Catarina F. M. Castro
+ * @author: @catfmcastro
+ * Catarina F. M. Castro
  *
  * Teoria dos Grafos e Computabilidade - PUC Minas
  */
 
 package Ex01;
 
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class App {
@@ -30,7 +30,7 @@ public class App {
 
         // Methods ------------------------------------
         graph = new Graph(fileName);
-        // todo grau de saída
+        graph.printOutdegree(selected - 1);
         // todo grau de entrada
         graph.printSuccessors(selected - 1);
         graph.printPredecessors(selected - 1);

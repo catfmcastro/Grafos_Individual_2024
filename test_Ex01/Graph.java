@@ -6,9 +6,6 @@
 package test_Ex01;
 
 import java.io.File;
-import java.io.IOException;
-import java.io.RandomAccessFile;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Graph {

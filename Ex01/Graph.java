@@ -6,9 +6,6 @@
 package Ex01;
 
 import java.io.File;
-import java.io.IOException;
-import java.io.RandomAccessFile;
-import java.util.Arrays;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -79,18 +76,39 @@ public class Graph {
         return m;
     }
     
-    // Methods ----------------------------------------------------------    
+    // Methods ----------------------------------------------------------
+    
+    // Indegree
+    public void getIndegree () {
+
+    }
+
+    // Outdegree
+    public int getOutdegree (int i) {
+        return adj.get(i).getSuccessors().size();
+    }
+
+    public void printOutdegree (int i) {
+        int outdegree = getOutdegree(i);
+        System.out.println("Grau de saída: " + outdegree);
+    }
+    
+    // Successors
     public void printSuccessors(int i) {
         validateVertex(i);
         Vertex tmp = adj.get(i);
         System.out.println("Conjunto de sucessores: " + tmp.getSuccessors().toString());
     }
 
+    // Predecessors
+    // !! ERRO NA FUNÇÃO CORRIGIR
     public ArrayList<Integer> getPredecessors(int i) {
         ArrayList<Integer> predecessors = new ArrayList<Integer>();
-        for (Integer value : adj.get(i).getSuccessors()) {
-            if (value == i) {
-                predecessors.add(value);
+        for (int j = 0; j < adj.size(); j++) {
+            for (Integer value : adj.get(j).getSuccessors()) {
+                if (value == i) {
+                    predecessors.add(j);
+                }
             }
         }
         return predecessors;
@@ -102,13 +120,14 @@ public class Graph {
         System.out.println("Conjunto de Predecessores: " + predecessors.toString());
     }
 
-
+    // checks if vertex is valid
     private void validateVertex(int v) {
         if (v < 0 || v > n) {
             throw new IllegalArgumentException("Vertex " + v + " is invalid: it is not between 0 and " + n);
         }
     }
 
+    // adds edge to graph
     public void addEdge(int v, int w) {
         validateVertex(v);
         validateVertex(w);
