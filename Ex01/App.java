@@ -9,6 +9,7 @@
 
 package Ex01;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class App {
@@ -32,12 +33,15 @@ public class App {
         String fileName = ""; // file name for test graph
 
         // User Input --------------------------------
-        System.out.println("Insira o nome do arquivo: ");
+        System.out.print("Insira o nome do arquivo: ");
         fileName = sc.nextLine();
 
-        System.out.println("Insira o número do vértice: ");
+        System.out.println();
+        
+        System.out.print("Insira o número do vértice: ");
         selected = sc.nextInt();
 
+        // Methods ------------------------------------
         graph = new Graph(fileName);
         // todo grau de saída
         // todo grau de entrada

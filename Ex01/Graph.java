@@ -8,52 +8,44 @@ package Ex01;
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.util.Arrays;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Graph {
 
-    // Atributes
-    private int n;
-    private int m;
-
-    protected int origin[];
-    protected int destiny[];
-
-    protected int forwardStar[];
-    protected int reverseStar[];
-
+    // Atributes --------------------------------------------------
+    private int n; // number of vertexes
+    private int m; // number of edges
+    
+    private int adj[]; // adjacency list
+    private int indegree[]; // indegree array
+    private int outdegree[]; // outdegree array
+    
     private Scanner file;
 
-    // Constructor
+    // Constructor ------------------------------------------------
     public Graph(String fileName) {
-        int pos = 1; // begin position with 1, so it aligns with vertexes number
-
         try {
             // open graph .txt file
             String dir = "./Ex01/Tests/" + fileName + ".txt";
             this.file = new Scanner(new File(dir));
 
-            // vertexes number and edges number
+            // vertexes number and edges number input
             this.n = file.nextInt();
             this.m = file.nextInt();
 
-            // origin and destiny vertexes of each edge
-            this.origin = new int[m + 1]; 
-            this.destiny = new int[m + 1];
+            System.out.println("n = " + n + " and m = " + m);
 
-            // forward and reverse star arrays
-            this.forwardStar = new int[m + 2];
-            this.reverseStar = new int[m + 2];
+            indegree = new int[n + 1];
+            outdegree = new int[n + 1];
+            adj = new int[n + 1];
 
-            while(file.hasNextInt()) {
-                origin[pos] = file.nextInt();
-                destiny[pos] = file.nextInt();
-                pos++;
+            for(int i = 0; i < m; i++) {
+                int v = file.nextInt();
+                int w = file.nextInt();
+                addEdge(v, w);
             }
-
-            // indicates end of list
-            this.forwardStar[n+1] = m + 1;
-            this.reverseStar[n+1] = m + 1;
             
         } catch (Exception e) {
             System.out.println();
@@ -62,7 +54,7 @@ public class Graph {
         }
     }
 
-    // Getters & Setters
+    // Getters & Setters -----------------------------------------------
     public int GetN() {
         return n;
     }
@@ -70,4 +62,22 @@ public class Graph {
     public int GetM() {
         return m;
     }
+
+    // Methods ----------------------------------------------------------
+
+    private void validateVertex (int v) {
+        if (v < 0 || v > n) {
+            throw new IllegalArgumentException("Vertex " + v + " is invalid: it is not between 0 and" + n);
+        }
+    }
+
+    public void addEdge (int v, int w) {
+        validateVertex(v);
+        validateVertex(w);
+        adj[v] = w;
+        indegree[w]++;
+        outdegree[v]++;
+        System.out.println("testing: adj[" + v + "] = " + adj[v]);
+    }
+
 }
