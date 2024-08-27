@@ -14,17 +14,6 @@ import java.util.Scanner;
 
 public class App {
 
-    public static boolean isOptionValid(int selected) {
-        boolean awnser;
-        if (selected > -1 && selected <= 1) {
-            awnser = true;
-        } else {
-            System.out.println("Opção selecionada inválida! Tente novamente");
-            awnser = false;
-        }
-        return awnser;
-    }
-
     public static void main(String[] args) {
         // Atributes
         Scanner sc = new Scanner(System.in);
@@ -35,8 +24,6 @@ public class App {
         // User Input --------------------------------
         System.out.print("Insira o nome do arquivo: ");
         fileName = sc.nextLine();
-
-        System.out.println();
         
         System.out.print("Insira o número do vértice: ");
         selected = sc.nextInt();
@@ -45,8 +32,8 @@ public class App {
         graph = new Graph(fileName);
         // todo grau de saída
         // todo grau de entrada
-        // todo conjundo de sucessores
-        // todo conjunto de predecessores
+        graph.printSuccessors(selected - 1);
+        graph.printPredecessors(selected - 1);
 
         sc.close();
     }

@@ -13,33 +13,31 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 class Vertex {
-    private int number;
+    // Atributes
     private ArrayList<Integer> successors;
-    private ArrayList<Integer> predecessor;
 
-    public Vertex (int n) {
+    // Constructor
+    public Vertex() {
         this.successors = new ArrayList<Integer>();
-        this.number = n;
     }
 
-    public void addSuccessor() {
-        
+    // Getters & Setters
+    public ArrayList<Integer> getSuccessors() {
+        return successors;
     }
 
-    public void addPredecessor() {
-
+    // Metrhods
+    public void addSuccessor(int value) {
+        successors.add(value);
     }
 }
+
 public class Graph {
 
     // Atributes --------------------------------------------------
     private int n; // number of vertexes
     private int m; // number of edges
-    
-    private ArrayList<Vertex> adj[]; // adjacency list
-    private int indegree[]; // indegree array
-    private int outdegree[]; // outdegree array
-    
+    private ArrayList<Vertex> adj; // adjacency list
     private Scanner file;
 
     // Constructor ------------------------------------------------
@@ -53,16 +51,18 @@ public class Graph {
             this.n = file.nextInt();
             this.m = file.nextInt();
 
-            indegree = new int[n + 1];
-            outdegree = new int[n + 1];
-            // adj = new int[n + 1];
+            // initiates adjacency list, begining with zero
+            adj = new ArrayList<>();
+            for (int i = 0; i <= n; i++) {
+                adj.add(new Vertex());
+            }
 
-            for(int i = 0; i < m; i++) {
+            for (int i = 0; i < m; i++) {
                 int v = file.nextInt();
                 int w = file.nextInt();
-                addEdge(v, w, i);
+                addEdge(v, w);
             }
-            
+
         } catch (Exception e) {
             System.out.println();
             System.err.println(e);
@@ -78,23 +78,40 @@ public class Graph {
     public int GetM() {
         return m;
     }
+    
+    // Methods ----------------------------------------------------------    
+    public void printSuccessors(int i) {
+        validateVertex(i);
+        Vertex tmp = adj.get(i);
+        System.out.println("Conjunto de sucessores: " + tmp.getSuccessors().toString());
+    }
 
-    // Methods ----------------------------------------------------------
+    public ArrayList<Integer> getPredecessors(int i) {
+        ArrayList<Integer> predecessors = new ArrayList<Integer>();
+        for (Integer value : adj.get(i).getSuccessors()) {
+            if (value == i) {
+                predecessors.add(value);
+            }
+        }
+        return predecessors;
+    }
 
-    private void validateVertex (int v) {
+    public void printPredecessors(int i) {
+        validateVertex(i);
+        ArrayList<Integer> predecessors = getPredecessors(i);
+        System.out.println("Conjunto de Predecessores: " + predecessors.toString());
+    }
+
+
+    private void validateVertex(int v) {
         if (v < 0 || v > n) {
             throw new IllegalArgumentException("Vertex " + v + " is invalid: it is not between 0 and " + n);
         }
     }
 
-    public void addEdge (int v, int w, int i) {
+    public void addEdge(int v, int w) {
         validateVertex(v);
         validateVertex(w);
-        
-        //adj[i] = w;
-        // indegree[w]++;
-        // outdegree[v]++;
-        System.out.println("testing: adj[" + v + "] = " + adj[v]);
+        adj.get(v - 1).addSuccessor(w);
     }
-
 }
