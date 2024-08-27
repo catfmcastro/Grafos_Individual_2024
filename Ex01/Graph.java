@@ -12,15 +12,35 @@ import java.util.Arrays;
 import java.util.Scanner;
 import java.util.ArrayList;
 
+class Vertex {
+    private int number;
+    private ArrayList<Integer> successors;
+    private ArrayList<Integer> predecessor;
+    private int indegree;
+    private int outdegree;
+
+    public Vertex (int n) {
+        this.successors = new ArrayList<Integer>();
+        this.number = n;
+    }
+
+    public void addSuccessor() {
+
+    }
+
+    public void addPredecessor() {
+
+    }
+}
 public class Graph {
 
     // Atributes --------------------------------------------------
     private int n; // number of vertexes
     private int m; // number of edges
     
-    private int adj[]; // adjacency list
-    private int indegree[]; // indegree array
-    private int outdegree[]; // outdegree array
+    private ArrayList<Vertex> adj[]; // adjacency list
+    // private int indegree[]; // indegree array
+    // private int outdegree[]; // outdegree array
     
     private Scanner file;
 
@@ -35,16 +55,14 @@ public class Graph {
             this.n = file.nextInt();
             this.m = file.nextInt();
 
-            System.out.println("n = " + n + " and m = " + m);
-
-            indegree = new int[n + 1];
-            outdegree = new int[n + 1];
-            adj = new int[n + 1];
+            // indegree = new int[n + 1];
+            // outdegree = new int[n + 1];
+            // adj = new int[n + 1];
 
             for(int i = 0; i < m; i++) {
                 int v = file.nextInt();
                 int w = file.nextInt();
-                addEdge(v, w);
+                // addEdge(v, w);
             }
             
         } catch (Exception e) {
@@ -67,16 +85,17 @@ public class Graph {
 
     private void validateVertex (int v) {
         if (v < 0 || v > n) {
-            throw new IllegalArgumentException("Vertex " + v + " is invalid: it is not between 0 and" + n);
+            throw new IllegalArgumentException("Vertex " + v + " is invalid: it is not between 0 and " + n);
         }
     }
 
     public void addEdge (int v, int w) {
         validateVertex(v);
         validateVertex(w);
-        adj[v] = w;
-        indegree[w]++;
-        outdegree[v]++;
+
+        // adj[v] = w;
+        // indegree[w]++;
+        // outdegree[v]++;
         System.out.println("testing: adj[" + v + "] = " + adj[v]);
     }
 
