@@ -75,30 +75,34 @@ public class Graph {
     public int GetM() {
         return m;
     }
-    
+
     // Methods ----------------------------------------------------------
-    
     // Indegree
-    public int getIndegree (int i) {
+    public int getIndegree(int i) {
         int indegree = 0;
-        for (int j = 0; j < adj.size(); j ++){
-            if (j == i) {
-                
+        for (int j = 0; j < adj.size(); j++) {
+            if (adj.get(j).getSuccessors().contains(i + 1)) {
+                indegree++;
             }
         }
         return indegree;
     }
 
+    public void printIndegree(int i) {
+        int indegree = getIndegree(i);
+        System.out.println("Grau de entrada: " + indegree);
+    }
+
     // Outdegree
-    public int getOutdegree (int i) {
+    public int getOutdegree(int i) {
         return adj.get(i).getSuccessors().size();
     }
 
-    public void printOutdegree (int i) {
+    public void printOutdegree(int i) {
         int outdegree = getOutdegree(i);
         System.out.println("Grau de saída: " + outdegree);
     }
-    
+
     // Successors
     public void printSuccessors(int i) {
         validateVertex(i);
@@ -134,6 +138,6 @@ public class Graph {
     public void addEdge(int v, int w) {
         validateVertex(v);
         validateVertex(w);
-        adj.get(v - 1).addSuccessor(w);
+        adj.get(v - 1).addSuccessor(w); // each vertex v is indexed by (v - 1)
     }
 }
