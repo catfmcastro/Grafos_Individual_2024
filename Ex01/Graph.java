@@ -79,8 +79,14 @@ public class Graph {
     // Methods ----------------------------------------------------------
     
     // Indegree
-    public void getIndegree () {
-
+    public int getIndegree (int i) {
+        int indegree = 0;
+        for (int j = 0; j < adj.size(); j ++){
+            if (j == i) {
+                
+            }
+        }
+        return indegree;
     }
 
     // Outdegree
@@ -101,14 +107,11 @@ public class Graph {
     }
 
     // Predecessors
-    // !! ERRO NA FUNÇÃO CORRIGIR
     public ArrayList<Integer> getPredecessors(int i) {
         ArrayList<Integer> predecessors = new ArrayList<Integer>();
         for (int j = 0; j < adj.size(); j++) {
-            for (Integer value : adj.get(j).getSuccessors()) {
-                if (value == i) {
-                    predecessors.add(j);
-                }
+            if (adj.get(j).getSuccessors().contains(i + 1)) {
+                predecessors.add(j + 1);
             }
         }
         return predecessors;
