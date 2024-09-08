@@ -1,6 +1,6 @@
 /*
- * Implementação 01 - Representação de Grafos
- * Implementation 01 - Graph Representation
+ * Implementação 02 - Busca em Grafos
+ * Implementation 02 - Graph Search
  *
  * @author: @catfmcastro
  * Catarina F. M. Castro

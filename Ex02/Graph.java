@@ -12,6 +12,9 @@ import java.util.ArrayList;
 class Vertex {
     // Atributes
     private ArrayList<Integer> successors;
+    private int td;
+    private int tt;
+    private int parent;
 
     // Constructor
     public Vertex() {
@@ -21,6 +24,30 @@ class Vertex {
     // Getters & Setters
     public ArrayList<Integer> getSuccessors() {
         return successors;
+    }
+
+    public int getTd() {
+        return td;
+    }
+
+    public void setTd (int td) {
+        this.td = td;
+    }
+
+    public int getTt() {
+        return tt;
+    }
+
+    public void setTt(int tt) {
+        this.tt = tt;
+    }
+
+    public int getParent() {
+        return parent;
+    }
+
+    public void setParent(int parent) {
+        this.parent = parent;
     }
 
     // Metrhods
@@ -35,13 +62,14 @@ public class Graph {
     private int n; // number of vertexes
     private int m; // number of edges
     private ArrayList<Vertex> adj; // adjacency list
+    private int t; // global time counter
     private Scanner file;
 
     // Constructor ------------------------------------------------
     public Graph(String fileName) {
         try {
             // open graph .txt file
-            String dir = "./Ex01/Tests/" + fileName + ".txt";
+            String dir = "./Ex02/Tests/" + fileName + ".txt";
             this.file = new Scanner(new File(dir));
 
             // vertexes number and edges number input
@@ -76,7 +104,7 @@ public class Graph {
         return m;
     }
 
-    // Methods ----------------------------------------------------------
+    // Graph information ------------------------------------------------
     // Indegree
     public int getIndegree(int i) {
         int indegree = 0;
@@ -139,5 +167,27 @@ public class Graph {
         validateVertex(v);
         validateVertex(w);
         adj.get(v - 1).addSuccessor(w); // each vertex v is indexed by (v - 1)
+    }
+
+    // Depth Search --------------------------------------------------
+    public void depthSearcInit (int v) {
+        t = 0; // global time counter init
+        
+        // setting initial values
+        for (Vertex vertex : adj) {
+            vertex.setTd(0);
+            vertex.setTt(0);
+            vertex.setParent(-1);
+        }
+
+        for (int i = 0; i < adj.size() - 1; i++) {
+            if (adj.get(i).getTd() == 0) {
+                depthSearch(i);
+            }
+        }
+    }
+
+    public void depthSearch (int v) {
+        // adj.get(v)
     }
 }
