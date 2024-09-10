@@ -188,6 +188,26 @@ public class Graph {
     }
 
     public void depthSearch (int v) {
-        // adj.get(v)
+        t = t++; // increment counter
+        adj.get(v).setTd(t); // set discovery timestamp
+
+        for (Integer w: adj.get(v).getSuccessors()) {
+            if (adj.get(w - 1).getTd() == 0) {
+                adj.get(w - 1).setParent(v);
+                // !! visitar aresta de ÁRVORE
+                depthSearch(w - 1);
+            } else {
+                if (adj.get(w - 1).getTt() == 0) {
+                    // !! visitar aresta de RETORNO
+                } else if (adj.get(v).getTd() < adj.get(w - 1).getTd()) {
+                    // !! visitar aresta de AVANÇO
+                } else {
+                    // !! visitar aresta de CRUZAMENTO
+                }
+            }
+        }
+
+        t = t++; // increment counter
+        adj.get(v).setTt(t); // set finish timestamp
     }
 }
