@@ -17,7 +17,7 @@ public class App {
     public static void main(String[] args) {
         // Atributes
         Scanner sc = new Scanner(System.in);
-        Graph graph;
+        DFS graph;
         int selected = 0; // selected vertex
         String fileName = ""; // file name for test graph
 
@@ -29,13 +29,14 @@ public class App {
         selected = sc.nextInt();
 
         // Methods ------------------------------------
-        graph = new Graph(fileName);
+        graph = new DFS(fileName);
 
         System.out.println("------------------------------------");
-        graph.printOutdegree(selected - 1); // each vertex v is indexed by (v-1)
-        graph.printIndegree(selected - 1);
-        graph.printSuccessors(selected - 1);
-        graph.printPredecessors(selected - 1);
+        // graph.printOutdegree(selected - 1); // each vertex v is indexed by (v-1)
+        // graph.printIndegree(selected - 1);
+        // graph.printSuccessors(selected - 1);
+        // graph.printPredecessors(selected - 1);
+        graph.depthFirstSearch(selected - 1);
         System.out.println("------------------------------------");
 
         sc.close();

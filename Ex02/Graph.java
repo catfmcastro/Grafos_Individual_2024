@@ -20,6 +20,10 @@ class Vertex {
     // Constructor
     public Vertex() {
         this.successors = new ArrayList<Integer>();
+        this.td = -1;
+        this.tt = -1;
+        this.parent = -1;
+        this.visited = false;
     }
 
     // Getters & Setters
@@ -51,19 +55,17 @@ class Vertex {
         this.parent = parent;
     }
 
-    // Metrhods
+    public boolean getVisited() {
+        return visited;
+    }
+
+    public void setVisited(boolean visited) {
+        this.visited = visited;
+    }
+
+    // Methods
     public void addSuccessor(int value) {
         successors.add(value);
-    }
-}
-
-class Edge {
-    private int w; 
-    private int type; // 1 -> arvore; 2- retorno; 3 - avanço; 4; cruzamento
-
-    public Edge(int w, int type) {
-        this.w = w;
-        this.type = type;
     }
 }
 
@@ -105,6 +107,20 @@ public class Graph {
             System.out.println();
             System.err.println(e);
             e.printStackTrace();
+        }
+    }
+
+    // adds edge to graph
+    public void addEdge(int v, int w) {
+        validateVertex(v);
+        validateVertex(w);
+        adj.get(v - 1).addSuccessor(w); // each vertex v is indexed by (v - 1)
+    }
+
+    // checks if vertex is valid
+    private void validateVertex(int v) {
+        if (v < 0 || v > n) {
+            throw new IllegalArgumentException("Vertex " + v + " is invalid: it is not between 0 and " + n);
         }
     }
 
@@ -166,19 +182,5 @@ public class Graph {
         validateVertex(i);
         ArrayList<Integer> predecessors = getPredecessors(i);
         System.out.println("Conjunto de Predecessores: " + predecessors.toString());
-    }
-
-    // checks if vertex is valid
-    private void validateVertex(int v) {
-        if (v < 0 || v > n) {
-            throw new IllegalArgumentException("Vertex " + v + " is invalid: it is not between 0 and " + n);
-        }
-    }
-
-    // adds edge to graph
-    public void addEdge(int v, int w) {
-        validateVertex(v);
-        validateVertex(w);
-        adj.get(v - 1).addSuccessor(w); // each vertex v is indexed by (v - 1)
     }
 }
