@@ -1,8 +1,8 @@
 package Ex02;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
+import java.util.Stack;
 
 public class DFS extends Graph {
     private int time;
@@ -26,22 +26,32 @@ public class DFS extends Graph {
     }
 
     public void DFSVisit(int v) {
-        time = time++; // increment counter
-        Vertex vertex = adj.get(v);
-        vertex.setTd(time); // set discovery timestamp
-        vertex.setVisited(true); // sets vertex as visited
+        Stack<Integer> stack = new Stack<>();
+        stack.push(v);
 
-        for (Integer k : vertex.getSuccessors()) {
-            Vertex w = adj.get(k - 1); // successor vertex
-            if (!w.getVisited()) {
-                treeEdges.add((v + 1) + " " + k); // add tree edge
-                w.setParent(v); // set parent
-                DFSVisit(k - 1); // recursive call
+        while (!stack.isEmpty()) {
+            int current = stack.pop();
+            Vertex vertex = adj.get(current);
+
+            if (!vertex.getVisited()) {
+                time++; // increment counter
+                vertex.setTd(time); // set discovery timestamp
+                vertex.setVisited(true); // sets vertex as visited
+
+                // Push all unvisited successors onto the stack
+                for (Integer k : vertex.getSuccessors()) {
+                    Vertex w = adj.get(k - 1); // successor vertex
+                    if (!w.getVisited()) {
+                        treeEdges.add((current + 1) + " " + k); // add tree edge
+                        w.setParent(current); // set parent
+                        stack.push(k - 1); // push successor onto the stack
+                    }
+                }
+
+                time++; // increment counter
+                vertex.setTt(time); // set finish timestamp
             }
         }
-
-        time = time++; // increment counter
-        vertex.setTt(time); // set finish timestamp
     }
 
     // Edge Classification -------------------------------------------
