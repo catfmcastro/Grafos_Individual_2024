@@ -15,6 +15,7 @@ class Vertex {
     private int td;
     private int tt;
     private int parent;
+    private boolean visited;
 
     // Constructor
     public Vertex() {
@@ -30,7 +31,7 @@ class Vertex {
         return td;
     }
 
-    public void setTd (int td) {
+    public void setTd(int td) {
         this.td = td;
     }
 
@@ -56,16 +57,28 @@ class Vertex {
     }
 }
 
+class Edge {
+    private int w; 
+    private int type; // 1 -> arvore; 2- retorno; 3 - avanço; 4; cruzamento
+
+    public Edge(int w, int type) {
+        this.w = w;
+        this.type = type;
+    }
+}
+
 public class Graph {
 
     // Atributes --------------------------------------------------
-    private int n; // number of vertexes
-    private int m; // number of edges
-    private ArrayList<Vertex> adj; // adjacency list
-    private int t; // global time counter
-    private Scanner file;
+    protected int n; // number of vertexes
+    protected int m; // number of edges
+    protected ArrayList<Vertex> adj; // adjacency list
+    protected Scanner file;
 
     // Constructor ------------------------------------------------
+    public Graph() {
+    }
+
     public Graph(String fileName) {
         try {
             // open graph .txt file
@@ -167,47 +180,5 @@ public class Graph {
         validateVertex(v);
         validateVertex(w);
         adj.get(v - 1).addSuccessor(w); // each vertex v is indexed by (v - 1)
-    }
-
-    // Depth Search --------------------------------------------------
-    public void depthSearcInit (int v) {
-        t = 0; // global time counter init
-        
-        // setting initial values
-        for (Vertex vertex : adj) {
-            vertex.setTd(0);
-            vertex.setTt(0);
-            vertex.setParent(-1);
-        }
-
-        for (int i = 0; i < adj.size() - 1; i++) {
-            if (adj.get(i).getTd() == 0) {
-                depthSearch(i);
-            }
-        }
-    }
-
-    public void depthSearch (int v) {
-        t = t++; // increment counter
-        adj.get(v).setTd(t); // set discovery timestamp
-
-        for (Integer w: adj.get(v).getSuccessors()) {
-            if (adj.get(w - 1).getTd() == 0) {
-                adj.get(w - 1).setParent(v);
-                // !! visitar aresta de ÁRVORE
-                depthSearch(w - 1);
-            } else {
-                if (adj.get(w - 1).getTt() == 0) {
-                    // !! visitar aresta de RETORNO
-                } else if (adj.get(v).getTd() < adj.get(w - 1).getTd()) {
-                    // !! visitar aresta de AVANÇO
-                } else {
-                    // !! visitar aresta de CRUZAMENTO
-                }
-            }
-        }
-
-        t = t++; // increment counter
-        adj.get(v).setTt(t); // set finish timestamp
     }
 }
