@@ -1,6 +1,6 @@
 /*
- * Implementação 02 - Busca em Grafos
- * Implementation 02 - Graph Search
+ * Implementação 03 - Fluxo Máximo
+ * Implementation 03 - Max Flow
  *
  * @author: @catfmcastro
  * Catarina F. M. Castro
@@ -37,8 +37,13 @@ public class App {
 
         System.out.println("------------------------------------");
         MaxFlow maxFlow = new MaxFlow(graph.numVertices);
+
+        long startTime = System.nanoTime();
         int result = maxFlow.fordFulkerson(graph.graph, s, t);
+        long endTime = System.nanoTime();
+
         System.out.println("O fluxo máximo é: " + result);
+        System.out.println("Tempo de execução: " + (endTime - startTime) + " ns");
         System.out.println("------------------------------------");
 
         sc.close();
