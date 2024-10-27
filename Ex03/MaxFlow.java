@@ -1,10 +1,5 @@
 package Ex03;
 
-// Java program for implementation of Ford Fulkerson
-// algorithm
-import java.io.*;
-import java.lang.*;
-import java.util.*;
 import java.util.LinkedList;
 
 public class MaxFlow {
@@ -15,7 +10,7 @@ public class MaxFlow {
     }
 
     // retorna true se existe um caminho de s para t no grafo residual rGraph.
-    boolean bfs(int rGraph[][], int s, int t, int parent[] ) {
+    boolean bfs(int rGraph[][], int s, int t, int parent[]) {
         // array de vértices visitados
         boolean visited[] = new boolean[V];
         for (int i = 0; i < V; ++i)
